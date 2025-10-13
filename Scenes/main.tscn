@@ -1,80 +1,68 @@
-[gd_scene load_steps=10 format=3 uid="uid://crlm0nco0qtwi"]
+[gd_scene load_steps=14 format=3 uid="uid://crlm0nco0qtwi"]
 
-[ext_resource type="Script" uid="uid://b37nlrpxn4ew7" path="res://Scripts/main.gd" id="1_jjgbg"]
+[ext_resource type="Script" uid="uid://b37nlrpxn4ew7" path="res://main.gd" id="1_jjgbg"]
 [ext_resource type="Texture2D" uid="uid://bbyuy1ptnadfq" path="res://Sprites/Tank1.png" id="2_8gbba"]
 [ext_resource type="Script" uid="uid://dvlkyrfmrlchf" path="res://Scripts/tank.gd" id="2_jjvhh"]
+[ext_resource type="Script" uid="uid://b6ji5sfgah6c0" path="res://Scripts/ground.gd" id="2_kry3j"]
+[ext_resource type="Script" uid="uid://b784by60pxwge" path="res://Scripts/spawner.gd" id="3_6bp64"]
 [ext_resource type="Texture2D" uid="uid://b3estey3lbhq5" path="res://Sprites/Tank2-sheet.png" id="3_jjvhh"]
+[ext_resource type="PackedScene" uid="uid://k06nmqfejntw" path="res://Scenes/zombie.tscn" id="7_6bp64"]
+[ext_resource type="PackedScene" uid="uid://bnxjtrxm7hmbp" path="res://Scenes/ammunition.tscn" id="8_344ge"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_kry3j"]
 radius = 13.0
 height = 52.0
 
-[sub_resource type="Animation" id="Animation_21xkr"]
-resource_name = "moving"
-length = 0.4
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Tank2Sheet:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.2),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [0, 1]
-}
+[sub_resource type="AtlasTexture" id="AtlasTexture_kry3j"]
+atlas = ExtResource("3_jjvhh")
+region = Rect2(0, 0, 64, 64)
 
-[sub_resource type="Animation" id="Animation_6bp64"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Tank2Sheet:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0]
-}
+[sub_resource type="AtlasTexture" id="AtlasTexture_21xkr"]
+atlas = ExtResource("3_jjvhh")
+region = Rect2(0, 0, 64, 64)
 
-[sub_resource type="Animation" id="Animation_jjvhh"]
-resource_name = "idle"
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Tank2Sheet:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0]
-}
+[sub_resource type="AtlasTexture" id="AtlasTexture_6bp64"]
+atlas = ExtResource("3_jjvhh")
+region = Rect2(64, 0, 64, 64)
 
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_344ge"]
-_data = {
-&"RESET": SubResource("Animation_6bp64"),
-&"idle": SubResource("Animation_jjvhh"),
-&"moving": SubResource("Animation_21xkr")
-}
+[sub_resource type="SpriteFrames" id="SpriteFrames_344ge"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kry3j")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_21xkr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6bp64")
+}],
+"loop": true,
+"name": &"moving",
+"speed": 5.0
+}]
 
 [node name="main" type="Node2D"]
 script = ExtResource("1_jjgbg")
 
-[node name="ground" type="StaticBody2D" parent="."]
-
-[node name="Polygon2D" type="Polygon2D" parent="ground"]
+[node name="ground" type="StaticBody2D" parent="." groups=["Ground"]]
+script = ExtResource("2_kry3j")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="ground"]
 polygon = PackedVector2Array(-1383, -4, -1381, -222, -1321, -157, -1306, -68, -1252, -4, -1161, -3, -1041, -53, -941, -1, -818, 40, -648, -28, -511, 23, -222, -5, -24, 13, 45, 13, 207, 0, 321, -49, 485, 23, 781, 23, 933, -18, 1189, -57, 1327, -120, 1393, -294, 1544, -294, 1542, 388, -1379, 384)
 
+[node name="Polygon2D" type="Polygon2D" parent="ground"]
+modulate = Color(0.5330367, 0.5330367, 0.5330367, 1)
+color = Color(2.1658839e-06, 0.6950786, 0.3718237, 1)
+polygon = PackedVector2Array(-1383, -4, -1381, -222, -1321, -157, -1306, -68, -1252, -4, -1161, -3, -1041, -53, -941, -1, -818, 40, -648, -28, -511, 23, -222, -5, -24, 13, 45, 13, 207, 0, 321, -49, 485, 23, 781, 23, 933, -18, 1189, -57, 1327, -120, 1393, -294, 1544, -294, 1542, 388, -1379, 384)
+
 [node name="spawner" type="Node2D" parent="."]
+script = ExtResource("3_6bp64")
 
 [node name="Marker2D" type="Marker2D" parent="spawner"]
 position = Vector2(-1, -326)
@@ -103,7 +91,7 @@ position = Vector2(-319, -323)
 [node name="Marker2D9" type="Marker2D" parent="spawner"]
 position = Vector2(-576, -325)
 
-[node name="tank" type="CharacterBody2D" parent="."]
+[node name="tank" type="CharacterBody2D" parent="." groups=["Tank"]]
 script = ExtResource("2_jjvhh")
 
 [node name="canon" type="Sprite2D" parent="tank"]
@@ -116,15 +104,19 @@ position = Vector2(1, -1)
 rotation = 1.5707964
 shape = SubResource("CapsuleShape2D_kry3j")
 
-[node name="Tank2Sheet" type="Sprite2D" parent="tank/CollisionShape2D"]
-position = Vector2(-19, -0.99999905)
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="tank/CollisionShape2D"]
+texture_filter = 1
+position = Vector2(-19, -0.99999917)
 rotation = -1.5707964
-texture = ExtResource("3_jjvhh")
-hframes = 2
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="tank/CollisionShape2D"]
-libraries = {
-&"": SubResource("AnimationLibrary_344ge")
-}
+sprite_frames = SubResource("SpriteFrames_344ge")
+animation = &"idle"
+frame_progress = 0.5165185
 
 [node name="Camera2D" type="Camera2D" parent="tank"]
+zoom = Vector2(1.25, 1.25)
+
+[node name="Tank_Timer" type="Timer" parent="tank"]
+
+[node name="zombie" parent="." instance=ExtResource("7_6bp64")]
+
+[node name="ammunition" parent="." instance=ExtResource("8_344ge")]

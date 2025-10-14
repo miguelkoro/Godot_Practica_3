@@ -15,11 +15,20 @@ run/main_scene="uid://crlm0nco0qtwi"
 config/features=PackedStringArray("4.5", "Forward Plus")
 config/icon="res://Sprites/icon.svg"
 
+[file_customization]
+
+folder_colors={
+"res://Scenes/": "pink",
+"res://Scripts/": "orange",
+"res://Sprites/": "yellow",
+"res://Textures/": "purple"
+}
+
 [global_group]
 
 Enemy=""
-Ground=""
 Tank=""
+Ground=""
 
 [input]
 

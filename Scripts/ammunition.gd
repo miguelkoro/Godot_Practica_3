@@ -1,8 +1,11 @@
 extends RigidBody2D
 
-@onready var ground: Ground = get_node("../../Ground")
+#@onready var ground: Ground = get_node("../ground")
+@export var ground: Ground
+
 @onready var destruction_area_2d: Area2D = $Destruction_Area2D
-@onready var polygon_2d: Polygon2D = $"../ground/Polygon2D"
+@onready var polygon_2d: Polygon2D = null #$"../ground/Polygon2D"
+#@onready var ground: Ground = $"../ground"
 
 
 

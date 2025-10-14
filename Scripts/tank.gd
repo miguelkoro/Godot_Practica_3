@@ -5,7 +5,10 @@ extends CharacterBody2D
 @export var gravity = 220
 @export var speed = 100
 @export var jump_force = 175
-@export var canon_force = 100
+@export var canon_force = 1
+
+const AMMUNITION = preload("uid://bnxjtrxm7hmbp")
+
 
 func  _physics_process(delta: float) -> void:
 	#Gravity
@@ -30,7 +33,7 @@ func  _physics_process(delta: float) -> void:
 	if(Input.is_action_just_pressed("ui_jump") and is_on_floor()):
 		velocity.y = -jump_force 
 		animated_sprite_2d.play("idle")
-				
+		
 	#Apply movement with colision
 	move_and_slide()
 
@@ -42,7 +45,14 @@ func _input(event: InputEvent) -> void:
 	#Left mouse click button
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
 		#Instanciar la bola de cañon
-		pass
+		var ammunition = AMMUNITION.instantiate()
+		#ammunition.global_position = (event.position)-global_position.normalized()
+		
+		ammunition.apply_central_impulse(viewport_pos_to_world((event.position)-global_position.normalized())*canon_force)
+		
+		print("fdfds")
+		add_child(ammunition)
+		
 func viewport_pos_to_world(event_pos: Vector2) -> Vector2:
 	return get_viewport().get_canvas_transform().affine_inverse() * event_pos
 	

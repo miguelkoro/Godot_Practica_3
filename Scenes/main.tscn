@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://crlm0nco0qtwi"]
+[gd_scene load_steps=12 format=3 uid="uid://crlm0nco0qtwi"]
 
 [ext_resource type="Script" uid="uid://b37nlrpxn4ew7" path="res://main.gd" id="1_jjgbg"]
 [ext_resource type="Texture2D" uid="uid://bbyuy1ptnadfq" path="res://Sprites/Tank1.png" id="2_8gbba"]
@@ -6,8 +6,6 @@
 [ext_resource type="Script" uid="uid://b6ji5sfgah6c0" path="res://Scripts/ground.gd" id="2_kry3j"]
 [ext_resource type="Script" uid="uid://b784by60pxwge" path="res://Scripts/spawner.gd" id="3_6bp64"]
 [ext_resource type="Texture2D" uid="uid://b3estey3lbhq5" path="res://Sprites/Tank2-sheet.png" id="3_jjvhh"]
-[ext_resource type="PackedScene" uid="uid://k06nmqfejntw" path="res://Scenes/zombie.tscn" id="7_6bp64"]
-[ext_resource type="PackedScene" uid="uid://bnxjtrxm7hmbp" path="res://Scenes/ammunition.tscn" id="8_344ge"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_kry3j"]
 radius = 13.0
@@ -53,10 +51,10 @@ script = ExtResource("1_jjgbg")
 [node name="ground" type="StaticBody2D" parent="." groups=["Ground"]]
 script = ExtResource("2_kry3j")
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="ground"]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="ground" groups=["Ground"]]
 polygon = PackedVector2Array(-1383, -4, -1381, -222, -1321, -157, -1306, -68, -1252, -4, -1161, -3, -1041, -53, -941, -1, -818, 40, -648, -28, -511, 23, -222, -5, -24, 13, 45, 13, 207, 0, 321, -49, 485, 23, 781, 23, 933, -18, 1189, -57, 1327, -120, 1393, -294, 1544, -294, 1542, 388, -1379, 384)
 
-[node name="Polygon2D" type="Polygon2D" parent="ground"]
+[node name="Polygon2D" type="Polygon2D" parent="ground" groups=["Ground"]]
 modulate = Color(0.5330367, 0.5330367, 0.5330367, 1)
 color = Color(2.1658839e-06, 0.6950786, 0.3718237, 1)
 polygon = PackedVector2Array(-1383, -4, -1381, -222, -1321, -157, -1306, -68, -1252, -4, -1161, -3, -1041, -53, -941, -1, -818, 40, -648, -28, -511, 23, -222, -5, -24, 13, 45, 13, 207, 0, 321, -49, 485, 23, 781, 23, 933, -18, 1189, -57, 1327, -120, 1393, -294, 1544, -294, 1542, 388, -1379, 384)
@@ -94,12 +92,7 @@ position = Vector2(-576, -325)
 [node name="tank" type="CharacterBody2D" parent="." groups=["Tank"]]
 script = ExtResource("2_jjvhh")
 
-[node name="canon" type="Sprite2D" parent="tank"]
-position = Vector2(-2, -20)
-rotation = -3.1415925
-texture = ExtResource("2_8gbba")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="tank"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="tank" groups=["Tank"]]
 position = Vector2(1, -1)
 rotation = 1.5707964
 shape = SubResource("CapsuleShape2D_kry3j")
@@ -112,11 +105,12 @@ sprite_frames = SubResource("SpriteFrames_344ge")
 animation = &"idle"
 frame_progress = 0.5165185
 
+[node name="canon" type="Sprite2D" parent="tank" groups=["Tank"]]
+position = Vector2(-2, -20)
+rotation = -3.1415925
+texture = ExtResource("2_8gbba")
+
 [node name="Camera2D" type="Camera2D" parent="tank"]
 zoom = Vector2(1.25, 1.25)
 
 [node name="Tank_Timer" type="Timer" parent="tank"]
-
-[node name="zombie" parent="." instance=ExtResource("7_6bp64")]
-
-[node name="ammunition" parent="." instance=ExtResource("8_344ge")]

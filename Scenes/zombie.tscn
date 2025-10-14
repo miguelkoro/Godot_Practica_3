@@ -1,6 +1,7 @@
-[gd_scene load_steps=57 format=3 uid="uid://k06nmqfejntw"]
+[gd_scene load_steps=58 format=3 uid="uid://k06nmqfejntw"]
 
 [ext_resource type="Texture2D" uid="uid://v7bgusvxx8nr" path="res://Sprites/Zombie.png" id="1_h3kin"]
+[ext_resource type="Script" uid="uid://cqwgx0oge2x4x" path="res://Scripts/zombie.gd" id="1_n70j1"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ynf5e"]
 radius = 11.0
@@ -406,6 +407,7 @@ animations = [{
 }]
 
 [node name="zombie" type="CharacterBody2D" groups=["Enemy"]]
+script = ExtResource("1_n70j1")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_ynf5e")

@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://bnxjtrxm7hmbp"]
+[gd_scene load_steps=5 format=3 uid="uid://bnxjtrxm7hmbp"]
 
 [ext_resource type="Script" uid="uid://bij28blwax11c" path="res://Scripts/ammunition.gd" id="1_fwxe4"]
+[ext_resource type="Texture2D" uid="uid://cyibfe6ttotox" path="res://Sprites/icon.svg" id="2_7c55y"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_ynf5e"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_7c55y"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_hptm8"]
 
@@ -10,11 +11,16 @@
 script = ExtResource("1_fwxe4")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("RectangleShape2D_ynf5e")
+shape = SubResource("CircleShape2D_7c55y")
 
 [node name="Destruction_Area2D" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Destruction_Area2D"]
+scale = Vector2(2, 2)
 shape = SubResource("CircleShape2D_hptm8")
+
+[node name="Icon" type="Sprite2D" parent="."]
+scale = Vector2(0.15, 0.15)
+texture = ExtResource("2_7c55y")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

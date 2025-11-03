@@ -2,10 +2,10 @@ extends CharacterBody2D
 @onready var animated_sprite_2d: AnimatedSprite2D = $CollisionShape2D/AnimatedSprite2D
 @onready var canon: Sprite2D = $canon
 
-@export var gravity = 220
-@export var speed = 100
-@export var jump_force = 175
-@export var canon_force = 1
+@export var gravity = 900
+@export var speed = 180
+@export var jump_force = 300
+@export var canon_force = 600
 
 const AMMUNITION = preload("uid://bnxjtrxm7hmbp")
 
@@ -15,15 +15,16 @@ func  _physics_process(delta: float) -> void:
 	if not is_on_floor():
 		velocity.y += gravity * delta
 	else: 
-		velocity.y = max(velocity.y,0)
-		
+		velocity.y = max(velocity.y,0)		
 	#Horizontal movement
 	var input_dir := 0
 	if(Input.is_action_pressed("ui_left")):
 		input_dir-= 1
+		animated_sprite_2d.flip_h=false
 		animated_sprite_2d.play("moving")
 	elif(Input.is_action_pressed("ui_right")):
 		input_dir+= 1
+		animated_sprite_2d.flip_h=true
 		animated_sprite_2d.play("moving")
 	else:
 		animated_sprite_2d.play("idle")
@@ -46,12 +47,20 @@ func _input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
 		#Instanciar la bola de cañon
 		var ammunition = AMMUNITION.instantiate()
+		ammunition.position = canon.global_position
+		var mouse_world = viewport_pos_to_world(event.position)
+		var direction = (mouse_world - canon.global_position).normalized()
+		
+		get_tree().current_scene.add_child(ammunition)
+		ammunition.apply_central_impulse(direction * canon_force)
 		#ammunition.global_position = (event.position)-global_position.normalized()
+		#ammunition.add_collision_exception_with(self) #Ignora la collision con el tanque
+		#ammunition.apply_central_impulse(viewport_pos_to_world((event.position)-global_position.normalized())*canon_force)
 		
-		ammunition.apply_central_impulse(viewport_pos_to_world((event.position)-global_position.normalized())*canon_force)
 		
-		print("fdfds")
-		add_child(ammunition)
+		#print("fdfds")
+		#add_child(ammunition)
+		#get_tree().current_scene.add_child(ammunition) #Para que sea hijo de la escena en general y no del tasnque
 		
 func viewport_pos_to_world(event_pos: Vector2) -> Vector2:
 	return get_viewport().get_canvas_transform().affine_inverse() * event_pos

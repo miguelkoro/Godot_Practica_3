@@ -29,6 +29,7 @@ folder_colors={
 Enemy=""
 Tank=""
 Ground=""
+Ammunition=""
 
 [input]
 

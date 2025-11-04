@@ -13,8 +13,7 @@ extends RigidBody2D
 
 func _on_body_entered(body: Node) -> void:
 	#if body.get_groups().has("Ground") or body.get_groups().has("Enemy"):
-	if body.is_in_group("Ground") or body.is_in_group("Enemy"):
-		print("dfdsaa")
+	if body.is_in_group("Ground") or body.is_in_group("Enemy"):		
 		queue_free()
 		#if ground is Ground:
 		update_polygon_2d(global_position)

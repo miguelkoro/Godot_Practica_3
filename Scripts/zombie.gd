@@ -7,6 +7,7 @@ extends CharacterBody2D
 var active := false  # se activa al tocar el suelo por primera vez
 var target: Node2D = null
 var isDying = false
+var isAttacking = false
 
 func _physics_process(delta: float) -> void:
 	
@@ -17,7 +18,7 @@ func _physics_process(delta: float) -> void:
 	else:
 		if not active:
 			active = true  # se activa cuando toca el suelo
-	if not isDying:
+	if not isDying and not isAttacking:
 		# Si está activo, moverse hacia la derecha
 		var direction = (target.global_position - global_position).normalized()
 		if active:
@@ -49,3 +50,12 @@ func die():
 func _on_animated_sprite_2d_2_animation_finished() -> void:
 	if isDying:
 		queue_free()
+	elif isAttacking and animated.animation == "atacking":
+		isAttacking = false
+
+
+func _on_area_attack_body_entered(body: Node2D) -> void:
+	if body.is_in_group("Tank") and not isDying:
+		animated.play("atacking")
+		isAttacking = true
+		print("HAS MUERTO")

@@ -96,7 +96,7 @@ position = Vector2(-319, -323)
 position = Vector2(-576, -325)
 
 [node name="Timer" type="Timer" parent="spawner"]
-wait_time = 1.555
+wait_time = 2.0
 autostart = true
 
 [node name="tank" type="CharacterBody2D" parent="." groups=["Tank"]]

@@ -20,11 +20,12 @@ func _on_body_entered(body: Node) -> void:
 		update_polygon_2d(global_position)
 		for overlap in destruction_area_2d.get_overlapping_bodies():
 			if overlap.get_groups().has("Enemy"):
-				overlap.queue_free()
-			queue_free()
+				overlap.die()
+				#overlap.queue_free()
+		queue_free()
 			
 func update_polygon_2d(pos:Vector2)->void:
-	var new_values = draw_circle_polygon(pos, 20 , 100)
+	var new_values = draw_circle_polygon(pos, 20 , 70)
 	var res = Geometry2D.clip_polygons(polygon_2d.polygon, new_values)
 	polygon_2d.polygon = res[0]
 	ground.call_deferred("copy_collision_now") #LLama a la funcion para actualizar los puntos de poligono

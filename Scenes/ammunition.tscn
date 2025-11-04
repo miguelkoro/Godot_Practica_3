@@ -6,7 +6,7 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_7c55y"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_hptm8"]
-radius = 25.5196
+radius = 35.00357
 
 [node name="ammunition" type="RigidBody2D" groups=["Tank"]]
 contact_monitor = true

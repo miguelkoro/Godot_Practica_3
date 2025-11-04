@@ -4,8 +4,8 @@ extends CharacterBody2D
 
 @export var gravity = 900
 @export var speed = 180
-@export var jump_force = 300
-@export var canon_force = 600
+@export var jump_force = 450
+@export var canon_force = 750
 
 const AMMUNITION = preload("uid://bnxjtrxm7hmbp")
 

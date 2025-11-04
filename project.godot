@@ -18,6 +18,7 @@ config/icon="res://Sprites/icon.svg"
 [file_customization]
 
 folder_colors={
+"res://Particles/": "green",
 "res://Scenes/": "pink",
 "res://Scripts/": "orange",
 "res://Sprites/": "yellow",
@@ -60,3 +61,7 @@ ui_jump={
 2d_physics/layer_3="Bullet"
 2d_physics/layer_4="Enemy"
 2d_physics/layer_5="Ground"
+
+[rendering]
+
+textures/canvas_textures/default_texture_filter=0

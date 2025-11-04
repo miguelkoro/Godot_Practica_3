@@ -2,6 +2,7 @@ extends CharacterBody2D
 
 @onready var animated: AnimatedSprite2D = $AnimatedSprite2D2
 
+
 @export var gravity := 900
 @export var speed := 30.0
 var active := false  # se activa al tocar el suelo por primera vez

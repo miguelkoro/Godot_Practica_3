@@ -7,6 +7,7 @@ extends RigidBody2D
 #@onready var ground: Ground = $"../ground"
 @onready var ground = get_tree().get_first_node_in_group("Ground")
 @onready var polygon_2d: Polygon2D = ground.get_node("Polygon2D")
+@export var particle_scene: PackedScene = null
 
 
 
@@ -14,9 +15,11 @@ extends RigidBody2D
 func _on_body_entered(body: Node) -> void:
 	#if body.get_groups().has("Ground") or body.get_groups().has("Enemy"):
 	if body.is_in_group("Ground") or body.is_in_group("Enemy"):		
+		instantiate_particle()
 		queue_free()
 		#if ground is Ground:
 		update_polygon_2d(global_position)
+		
 		for overlap in destruction_area_2d.get_overlapping_bodies():
 			if overlap.get_groups().has("Enemy"):
 				overlap.die()
@@ -36,3 +39,11 @@ func draw_circle_polygon(pos: Vector2, points_nb: int, radius:float) -> PackedVe
 		var point = deg_to_rad(i * 360.0 / points_nb)
 		points.push_back(pos+ Vector2(cos(point), sin(point)) * radius)
 	return points
+
+func instantiate_particle() -> void:
+	var particle = particle_scene.instantiate()
+	particle.position = global_position
+	particle.emitting = true
+	get_tree().current_scene.add_child(particle)
+	
+	

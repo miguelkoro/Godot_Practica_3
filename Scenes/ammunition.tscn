@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://bnxjtrxm7hmbp"]
+[gd_scene load_steps=6 format=3 uid="uid://bnxjtrxm7hmbp"]
 
 [ext_resource type="Script" uid="uid://bij28blwax11c" path="res://Scripts/ammunition.gd" id="1_fwxe4"]
 [ext_resource type="Texture2D" uid="uid://cyibfe6ttotox" path="res://Sprites/icon.svg" id="2_7c55y"]
+[ext_resource type="PackedScene" uid="uid://biuuwn683aexy" path="res://Scenes/particle.tscn" id="2_oo3v7"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_7c55y"]
 
@@ -12,6 +13,7 @@ radius = 35.00357
 contact_monitor = true
 max_contacts_reported = 1
 script = ExtResource("1_fwxe4")
+particle_scene = ExtResource("2_oo3v7")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_7c55y")
